@@ -4,6 +4,7 @@ create table if not exists public.products (
   name text not null,
   price numeric not null check (price >= 0),
   image_url text not null,
+  type text not null default 'mug' check (type in ('mug','verre')),
   created_at timestamptz not null default now()
 );
 create table if not exists public.settings (key text primary key, value text);
@@ -32,3 +33,6 @@ create policy "photos supprimees par admin" on storage.objects for delete using 
 
 -- Après avoir créé votre utilisateur admin (Authentication > Users), exécutez :
 -- insert into public.admins (user_id) select id from auth.users where email = 'VOTRE_EMAIL';
+
+-- Si la table products existait déjà (avant l'ajout du filtre Mugs / Verres), exécutez seulement ceci :
+-- alter table public.products add column if not exists type text not null default 'mug' check (type in ('mug','verre'));
