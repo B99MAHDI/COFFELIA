@@ -1,88 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Coffelia – Mugs et verres à café stylés</title>
-<meta name="description" content="Coffelia sélectionne des mugs et des verres à café stylés. Coffee. Love. Every moment.">
-<link rel="icon" type="image/png" href="assets/img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body data-root="">
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="index.html">Coffelia</a>
-    <nav class="pills" aria-label="Navigation">
-      <a href="index.html" aria-current="page">Accueil</a>
-      <a href="pages/catalogue.html">Catalogue</a>
-      <a href="index.html#commander">Commander</a>
-    </nav>
-  </div>
-</header>
-<main>
-  <section class="hero">
-    <div class="wrap">
-      <div>
-        <span class="tag">Mugs &amp; verres à café</span>
-        <h1>Un café, un mug, <mark>un sourire.</mark></h1>
-        <p class="lead">Des mugs et des verres à café choisis pour leurs couleurs et leur caractère. Parce que la pause du matin mérite mieux qu’un gobelet.</p>
-        <div class="row">
-          <a class="btn" href="pages/catalogue.html">Voir le catalogue</a>
-          <a class="btn ghost" href="https://www.instagram.com/coffelia1/" target="_blank" rel="noopener">Instagram</a>
-        </div>
-      </div>
-      <div class="stage">
-        <div class="blob"></div>
-        <div class="logo-card"><img src="assets/img/logo.jpg" alt="Logo Coffelia"></div>
-        <div class="float a" id="fa"></div>
-        <div class="float b" id="fb"></div>
-        <svg class="stamp" viewBox="0 0 120 120" role="img" aria-label="Coffee. Love. Every moment.">
-          <circle cx="60" cy="60" r="58" fill="#D5E5B8"/>
-          <defs><path id="circ" d="M60 60m-42 0a42 42 0 1 1 84 0a42 42 0 1 1-84 0"/></defs>
-          <text><textPath href="#circ" textLength="258" lengthAdjust="spacing">Coffee · Love · Every moment · </textPath></text>
-          <path d="M60 50c-7-8-16 3-8 10l8 8 8-8c8-7-1-18-8-10z" fill="#2B1710"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <div class="ticker" aria-hidden="true">
-    <div>
-      <span>Mugs</span><span>Verres à café</span><span>Coffee. Love. Every moment.</span><span>Livraison au Maroc</span><span>Mugs</span><span>Verres à café</span><span>Coffee. Love. Every moment.</span><span>Livraison au Maroc</span>
-    </div>
-  </div>
-
-  <section class="shop">
-    <div class="wrap">
-      <div class="head"><h2>Les nouveautés</h2></div>
-      <div id="grid" class="grid"></div>
-      <p id="empty" class="note">Chargement…</p>
-      <div class="more"><a class="btn ghost" href="pages/catalogue.html">Voir tout le catalogue</a></div>
-    </div>
-  </section>
-
-  <section class="band" id="commander">
-    <div class="wrap">
-      <h2>Commander, c’est simple</h2>
-      <div class="step"><b>1</b><h3>Choisissez</h3><p>Parcourez le catalogue et cliquez sur Acheter.</p></div>
-      <div class="step"><b>2</b><h3>Écrivez-nous</h3><p>Un message WhatsApp déjà rédigé s’ouvre avec votre article.</p></div>
-      <div class="step"><b>3</b><h3>Payez en privé</h3><p>Nous vous envoyons les coordonnées pour le virement.</p></div>
-    </div>
-  </section>
-</main>
-<footer>
-  <div class="wrap">
-    <span class="brand">Coffelia</span>
-    <a href="https://www.instagram.com/coffelia1/" target="_blank" rel="noopener">@coffelia1</a>
-    <span>© 2026 Coffelia · <a class="admin-link" href="pages/admin/connexion.html">Espace admin</a></span>
-  </div>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/common.js"></script>
-<script src="assets/js/home.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Coffelia – Mugs et verres à café stylés</title>
+    <meta name="description" content="Coffelia sélectionne des mugs et des verres à café stylés. Coffee. Love. Every moment." />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
