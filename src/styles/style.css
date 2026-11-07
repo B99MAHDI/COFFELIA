@@ -234,6 +234,16 @@ a.photo-wrap{display:block}
 .msg.info{background:var(--lilac)}
 .msg.err{background:var(--blush)}
 
-/* Modification d'un article */
-.panel.edit{margin:1rem 0 1.5rem}
-.panel.edit .hint{margin:0 0 .5rem}
+/* Fenêtre de modification d'un article */
+.panel .hint{margin:0 0 .5rem}
+dialog.modal{border:0;padding:0;background:transparent;color:var(--ink);width:min(560px,calc(100% - 2rem));max-width:none;max-height:calc(100dvh - 2rem);overflow:visible}
+dialog.modal::backdrop{background:rgba(20,10,6,.6)}
+dialog.modal .panel{margin:0;max-width:none;max-height:calc(100dvh - 2rem);overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.75rem}
+.modal-head h3{margin:0;overflow-wrap:anywhere}
+.modal-x{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;border:2px solid var(--ink);background:transparent;color:var(--ink);font:500 1.4rem/1 var(--body);cursor:pointer}
+.modal-x:hover{background:var(--ink);color:var(--bg)}
+/* Fenêtre : en-tête toujours visible, formulaire plus compact */
+.modal-head{position:sticky;top:-1.5rem;z-index:2;margin:-1.5rem -1.5rem .75rem;padding:1.5rem 1.5rem .75rem;background:var(--latte);border-radius:28px 28px 0 0}
+dialog.modal .preview{width:96px;height:96px;margin-bottom:.75rem}
+dialog.modal textarea{min-height:4rem}

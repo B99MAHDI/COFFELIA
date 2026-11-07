@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Modal from "./Modal.jsx";
 import { updateProduct } from "../lib/api.js";
 
 export default function EditProductForm({ item, onSaved, onClose }) {
@@ -66,8 +67,7 @@ export default function EditProductForm({ item, onSaved, onClose }) {
   const id = (n) => `e${item.id}-${n}`;
 
   return (
-    <div className="panel edit">
-      <h3>Modifier « {item.name} »</h3>
+    <Modal title={`Modifier « ${item.name} »`} onClose={onClose}>
       <form onSubmit={submit}>
         <label htmlFor={id("name")}>
           Nom
@@ -112,6 +112,6 @@ export default function EditProductForm({ item, onSaved, onClose }) {
           <button className="btn ghost" type="button" onClick={onClose}>Fermer</button>
         </div>
       </form>
-    </div>
+    </Modal>
   );
 }
