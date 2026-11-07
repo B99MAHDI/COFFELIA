@@ -122,7 +122,7 @@ function WhatsappForm({ say }) {
       <h3>Contact WhatsApp pour le paiement</h3>
       <form onSubmit={submit}>
         <label htmlFor="fWa">
-          Numéro WhatsApp (avec l’indicatif, ou 06… pour le Maroc)
+          Numéro WhatsApp (avec l'indicatif, ou 06… pour le Maroc)
           <input id="fWa" type="tel" inputMode="tel" autoComplete="off" value={value} onChange={(e) => setValue(e.target.value)} />
         </label>
         <button className="btn" type="submit">Enregistrer le numéro</button>

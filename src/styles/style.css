@@ -227,3 +227,9 @@ a.photo-wrap{display:block}
   .pills a:nth-child(3){display:none}
   .pills a{padding:.5rem .95rem;font-size:.9rem;white-space:nowrap}
 }
+
+/* Messages de confirmation dans les formulaires */
+.msg{margin:0 0 1rem;padding:.65rem .95rem;border-radius:14px;font-size:.92rem;font-weight:500;color:var(--card-ink)}
+.msg.ok{background:var(--pistache)}
+.msg.info{background:var(--lilac)}
+.msg.err{background:var(--blush)}
