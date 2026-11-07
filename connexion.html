@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coffelia – Connexion</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">Coffelia</a>
+    <nav class="pills"><a href="index.html">Retour au site</a></nav>
+  </div>
+</header>
+<main>
+  <section class="page form-page">
+    <div class="wrap" style="display:grid;place-items:center">
+      <div class="panel">
+        <h2 style="font-size:2.2rem">Connexion</h2>
+        <p class="hint" style="margin-top:.5rem">Espace réservé aux administrateurs de Coffelia.</p>
+        <form id="loginForm">
+          <label for="lEmail">E-mail<input id="lEmail" type="email" autocomplete="username" required></label>
+          <label for="lPass">Mot de passe<input id="lPass" type="password" autocomplete="current-password" required></label>
+          <button class="btn" id="lBtn" type="submit">Se connecter</button>
+        </form>
+        <p id="status" role="status" class="hint" style="margin:1rem 0 0"></p>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  var C=Coffelia;
+  function say(t){C.$("status").textContent=t}
+  if(!C.sb){say("Connexion à la base impossible. Vérifiez config.js.");return}
+  C.isAdmin().then(function(ok){if(ok)location.replace("admin.html")}).catch(function(){});
+  C.$("loginForm").addEventListener("submit",async function(e){
+    e.preventDefault();var b=C.$("lBtn");b.disabled=true;say("Connexion…");
+    try{
+      var r=await C.sb.auth.signInWithPassword({email:C.$("lEmail").value.trim(),password:C.$("lPass").value});
+      if(r.error){say("E-mail ou mot de passe incorrect.");b.disabled=false;return}
+      if(await C.isAdmin()){location.replace("admin.html");return}
+      await C.sb.auth.signOut();say("Ce compte n’a pas accès à la gestion.");
+    }catch(err){say("Connexion impossible. Réessayez.")}
+    b.disabled=false;
+  });
+})();
+</script>
+</body>
+</html>

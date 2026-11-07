@@ -1,19 +1,14 @@
-# Site Coffelia avec base de données Supabase
+# Site Coffelia (pages séparées + Supabase)
 
-Fichiers : `index.html` (site client), `admin.html` (gestion, connexion obligatoire), `config.js`, `schema.sql`.
+Pages : `index.html` (accueil), `catalogue.html`, `acheter.html?id=…` (page d’achat), `connexion.html` (connexion admin), `admin.html` (gestion : ajout, disponibilité, suppression, numéro WhatsApp).
+Fichiers communs : `style.css`, `common.js`, `config.js`. Base : `schema.sql`.
 
 ## Mise en route
-1. Créez un projet sur supabase.com.
-2. Ouvrez **SQL Editor**, collez tout `schema.sql` et exécutez-le.
-3. Dans **Authentication**, désactivez les inscriptions publiques, puis créez votre utilisateur administrateur (e-mail + mot de passe, e-mail confirmé).
-4. Dans le SQL Editor, exécutez : `insert into public.admins (user_id) select id from auth.users where email = 'VOTRE_EMAIL';`
-5. Dans **Project Settings > API**, copiez l’URL du projet et la clé `anon` dans `config.js`.
-6. Testez en local (`python3 -m http.server` dans le dossier), puis mettez le dossier en ligne sur Netlify, Vercel ou GitHub Pages.
+1. Créez un projet Supabase et exécutez `schema.sql` dans le SQL Editor (ou, si la table existe déjà, les deux lignes `alter table` en bas du fichier).
+2. Authentication : désactivez les inscriptions publiques, créez votre utilisateur admin (e-mail confirmé).
+3. Déclarez-le : `insert into public.admins (user_id) select id from auth.users where email = 'VOTRE_EMAIL';`
+4. Remplissez `config.js` (URL du projet + clé `anon`, jamais la clé `service_role`).
+5. Poussez tous les fichiers à la racine du dépôt GitHub (Settings > Pages > branche main, dossier /root).
 
 ## Utilisation
-- Les clients voient `index.html` : catalogue, bouton Acheter, page d’achat avec contact WhatsApp pour un virement en privé.
-- Vous vous connectez sur `admin.html` : ajout d’articles (nom, prix, photo), numéro WhatsApp, suppression. Aucun lien vers cette page n’est affiché aux clients.
-- Pour ajouter un autre administrateur : créez-lui un utilisateur, puis ajoutez son identifiant dans la table `admins`.
-
-## Sécurité
-Seuls les comptes présents dans `admins` peuvent modifier les données ou les photos, grâce aux règles RLS. Les clients ne peuvent que lire le catalogue.
+Les clients utilisent l’accueil, le catalogue et la page d’achat (WhatsApp, virement en privé). Vous vous connectez sur `connexion.html` : aucun lien vers cette page n’est affiché sur le site.
