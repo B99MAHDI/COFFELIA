@@ -14,8 +14,9 @@ COFFELIA/
 │   ├── main.jsx                Démarrage de React et du routeur
 │   ├── App.jsx                 Liste des pages (routes)
 │   ├── config.js               URL Supabase et clé anon (à remplir)
-│   ├── pages/                  Home, Catalogue, Buy, Login, Admin, NotFound
-│   ├── components/             Header, Footer, ProductCard, layouts, illustrations
+│   ├── pages/                  Home, Catalogue, Buy, Cart, Login, Admin, NotFound
+│   ├── context/CartContext.jsx Panier (mémorisé dans le navigateur)
+│   ├── components/             Header, Footer, ProductCard, AddToCartButton, layouts, illustrations
 │   ├── hooks/                  useProducts, useAdmin, usePageTitle
 │   ├── lib/                    supabase.js, api.js (requêtes), utils.js
 │   ├── styles/style.css        Styles de tout le site
@@ -25,7 +26,7 @@ COFFELIA/
 ```
 
 ## Adresses du site
-`/#/` accueil · `/#/catalogue` · `/#/acheter/ID` · `/#/admin/connexion` · `/#/admin` (gestion)
+`/#/` accueil · `/#/catalogue` · `/#/acheter/ID` · `/#/panier` · `/#/admin/connexion` · `/#/admin` (gestion)
 
 ## Mise en route
 1. Supabase : exécutez `database/schema.sql` (SQL Editor), créez votre utilisateur admin, puis

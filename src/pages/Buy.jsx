@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchProduct, fetchWhatsapp } from "../lib/api.js";
 import { cleanWa, formatPrice, typeLabel } from "../lib/utils.js";
+import AddToCartButton from "../components/AddToCartButton.jsx";
 import usePageTitle from "../hooks/usePageTitle.js";
 import { INSTAGRAM_URL } from "../config.js";
 
@@ -40,7 +41,7 @@ export default function Buy() {
     } else if (wa) {
       action = (
         <>
-          <h3>Paiement par virement, en privé</h3>
+          <h3>Ou commandez cet article seul</h3>
           <ol>
             <li>Indiquez votre nom (facultatif).</li>
             <li>Continuez sur WhatsApp : le message est déjà prêt.</li>
@@ -72,6 +73,12 @@ export default function Buy() {
           <h2>{item.name}</h2>
           <p className="big">{formatPrice(item.price)}</p>
           {item.desc && <p className="intro">{item.desc}</p>}
+          {item.available && (
+            <div className="btn-row" style={{ marginBottom: "2rem" }}>
+              <AddToCartButton item={item} />
+              <Link className="btn ghost" to="/panier">Voir le panier</Link>
+            </div>
+          )}
           {action}
         </div>
       </div>
