@@ -161,3 +161,21 @@ main{flex:1 0 auto}
 footer{margin-top:auto;flex-shrink:0}
 .admin-link{opacity:.7;text-decoration:underline;text-underline-offset:4px;letter-spacing:0}
 .admin-link:hover{opacity:1}
+
+/* Liste déroulante, case à cocher et champ photo du formulaire */
+.panel select{
+  -webkit-appearance:none;-moz-appearance:none;appearance:none;
+  font:inherit;width:100%;cursor:pointer;
+  padding:.8rem 2.8rem .8rem .95rem;border-radius:14px;
+  border:2px solid var(--line);background-color:var(--bg);color:var(--ink);
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);
+  background-position:calc(100% - 1.4rem) 50%,calc(100% - 1rem) 50%;
+  background-size:.45rem .45rem,.45rem .45rem;background-repeat:no-repeat;
+  transition:border-color .2s,box-shadow .2s;
+}
+.panel select:hover{border-color:var(--ink)}
+.panel select:focus-visible,.panel input:focus-visible,.panel textarea:focus-visible{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--ink)}
+.panel select option{background-color:var(--bg);color:var(--ink);font-family:var(--body)}
+.panel input[type="checkbox"]{accent-color:var(--ink);width:1.2rem;height:1.2rem;cursor:pointer}
+.panel input[type="file"]{padding:.55rem;cursor:pointer}
+.panel input[type="file"]::file-selector-button{font:700 .9rem var(--body);background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:.55rem 1.1rem;margin-right:.8rem;cursor:pointer}
