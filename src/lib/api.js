@@ -72,6 +72,26 @@ export async function addProduct({ name, price, type, description, available, fi
   if (error) throw error;
 }
 
+// Modifie un article existant. Si une nouvelle photo est fournie, elle remplace l'ancienne.
+export async function updateProduct(item, { name, price, type, description, available, file }) {
+  const client = need();
+  const fields = { name, price, type, description: description || null, available };
+  let newPath = null;
+  if (file) {
+    const blob = await shrinkImage(file);
+    newPath = crypto.randomUUID() + ".jpg";
+    const up = await client.storage.from("products").upload(newPath, blob, { contentType: "image/jpeg" });
+    if (up.error) throw up.error;
+    fields.image_url = client.storage.from("products").getPublicUrl(newPath).data.publicUrl;
+  }
+  const { data, error } = await client.from("products").update(fields).eq("id", item.id).select("id");
+  if (error || !data || data.length === 0) {
+    if (newPath) await client.storage.from("products").remove([newPath]); // évite une photo orpheline
+    throw error || new Error("Aucune ligne modifiée");
+  }
+  if (newPath) await client.storage.from("products").remove([item.url.split("/").pop()]);
+}
+
 export async function setAvailable(id, available) {
   const { error } = await need().from("products").update({ available }).eq("id", id);
   if (error) throw error;

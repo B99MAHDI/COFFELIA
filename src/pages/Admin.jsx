@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { addProduct, deleteProduct, fetchWhatsapp, saveWhatsapp, setAvailable } from "../lib/api.js";
 import { sb } from "../lib/supabase.js";
 import { cleanWa, formatPrice, typeLabel } from "../lib/utils.js";
+import EditProductForm from "../components/EditProductForm.jsx";
 import useAdmin from "../hooks/useAdmin.js";
 import useProducts from "../hooks/useProducts.js";
 import usePageTitle from "../hooks/usePageTitle.js";
@@ -182,6 +183,7 @@ export default function Admin() {
   const { items, reload } = useProducts();
   const [message, setMessage] = useState("");
   const [confirmId, setConfirmId] = useState(null);
+  const [editingId, setEditingId] = useState(null);
 
   if (status === "no") return <Navigate to="/admin/connexion" replace />;
   if (status === "checking")
@@ -234,19 +236,24 @@ export default function Admin() {
         <h3 className="lst">Articles du catalogue</h3>
         <div>
           {items && items.length === 0 && <p className="note">Aucun article pour le moment.</p>}
-          {(items || []).map((it) => (
-            <div className="arow" key={it.id}>
-              <img src={it.url} alt="" />
-              <span>
-                {it.name} ({typeLabel(it.type).toLowerCase()}) – {formatPrice(it.price)}
-                {!it.available && <em className="tag2">Épuisé</em>}
-              </span>
-              <div className="acts">
-                <button type="button" onClick={() => toggle(it)}>{it.available ? "Marquer épuisé" : "Remettre en vente"}</button>
-                <button type="button" onClick={() => remove(it)}>{confirmId === it.id ? "Confirmer" : "Supprimer"}</button>
+          {(items || []).map((it) =>
+            editingId === it.id ? (
+              <EditProductForm key={it.id} item={it} onSaved={reload} onClose={() => setEditingId(null)} />
+            ) : (
+              <div className="arow" key={it.id}>
+                <img src={it.url} alt="" />
+                <span>
+                  {it.name} ({typeLabel(it.type).toLowerCase()}) – {formatPrice(it.price)}
+                  {!it.available && <em className="tag2">Épuisé</em>}
+                </span>
+                <div className="acts">
+                  <button type="button" onClick={() => { setEditingId(it.id); setConfirmId(null); }}>Modifier</button>
+                  <button type="button" onClick={() => toggle(it)}>{it.available ? "Marquer épuisé" : "Remettre en vente"}</button>
+                  <button type="button" onClick={() => remove(it)}>{confirmId === it.id ? "Confirmer" : "Supprimer"}</button>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </section>

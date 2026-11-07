@@ -233,3 +233,7 @@ a.photo-wrap{display:block}
 .msg.ok{background:var(--pistache)}
 .msg.info{background:var(--lilac)}
 .msg.err{background:var(--blush)}
+
+/* Modification d'un article */
+.panel.edit{margin:1rem 0 1.5rem}
+.panel.edit .hint{margin:0 0 .5rem}
