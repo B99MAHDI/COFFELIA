@@ -11,6 +11,9 @@
     fmt: new Intl.NumberFormat("fr-FR")
   };
 
+  // Construit un chemin depuis la racine du site, quelle que soit la profondeur de la page
+  C.url = function (p) { return (document.body.getAttribute("data-root") || "") + p; };
+
   C.$ = function (id) { return document.getElementById(id); };
 
   C.el = function (tag, cls, text) {
@@ -77,7 +80,7 @@
     var b;
     if (it.available) {
       b = C.el("a", "btn", "Acheter");
-      b.href = "acheter.html?id=" + encodeURIComponent(it.id);
+      b.href = C.url("pages/acheter.html?id=") + encodeURIComponent(it.id);
     } else {
       b = C.el("span", "btn off", "Indisponible");
     }

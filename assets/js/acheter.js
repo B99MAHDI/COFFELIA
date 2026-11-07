@@ -1,44 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Coffelia – Acheter</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="index.html">Coffelia</a>
-    <nav class="pills" aria-label="Navigation">
-      <a href="index.html">Accueil</a>
-      <a href="catalogue.html" aria-current="page">Catalogue</a>
-      <a href="index.html#commander">Commander</a>
-    </nav>
-  </div>
-</header>
-<main>
-  <section class="page">
-    <div class="wrap">
-      <a class="back" href="catalogue.html">← Retour au catalogue</a>
-      <div id="checkout"><p class="intro">Chargement…</p></div>
-    </div>
-  </section>
-</main>
-<footer>
-  <div class="wrap">
-    <span class="brand">Coffelia</span>
-    <a href="https://www.instagram.com/coffelia1/" target="_blank" rel="noopener">@coffelia1</a>
-    <span>© 2026 Coffelia</span>
-  </div>
-</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="config.js"></script>
-<script src="common.js"></script>
-<script>
 (function(){
   var C=Coffelia,box=C.$("checkout");
   function say(t){box.textContent="";box.append(C.el("p","intro",t))}
@@ -71,6 +30,3 @@
     show(it,C.cleanWa(r[1]));
   }).catch(function(){say("Le catalogue est momentanément indisponible. Réessayez plus tard ou écrivez-nous sur Instagram.")});
 })();
-</script>
-</body>
-</html>

@@ -5,19 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Coffelia – Catalogue</title>
 <meta name="description" content="Tous les mugs et verres à café Coffelia.">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
+<body data-root="../">
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="index.html">Coffelia</a>
+    <a class="brand" href="../index.html">Coffelia</a>
     <nav class="pills" aria-label="Navigation">
-      <a href="index.html">Accueil</a>
-      <a href="catalogue.html" aria-current="page">Catalogue</a>
-      <a href="index.html#commander">Commander</a>
+      <a href="../index.html">Accueil</a>
+      <a href="../pages/catalogue.html" aria-current="page">Catalogue</a>
+      <a href="../index.html#commander">Commander</a>
     </nav>
   </div>
 </header>
@@ -41,32 +42,12 @@
   <div class="wrap">
     <span class="brand">Coffelia</span>
     <a href="https://www.instagram.com/coffelia1/" target="_blank" rel="noopener">@coffelia1</a>
-    <span>© 2026 Coffelia</span>
+    <span>© 2026 Coffelia · <a class="admin-link" href="../pages/admin/connexion.html">Espace admin</a></span>
   </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="config.js"></script>
-<script src="common.js"></script>
-<script>
-(function(){
-  var C=Coffelia,items=[],filter="all";
-  function render(){
-    var g=C.$("grid");g.textContent="";
-    var shown=items.filter(function(it){return filter==="all"||it.type===filter});
-    C.$("chips").hidden=items.length===0;
-    C.$("empty").hidden=shown.length>0;
-    C.$("empty").textContent=items.length?"Aucun article dans cette catégorie pour le moment.":"Les premiers articles arrivent bientôt. En attendant, retrouvez-les sur Instagram.";
-    shown.forEach(function(it,i){g.append(C.card(it,i))});
-  }
-  document.querySelectorAll(".chip").forEach(function(c){
-    c.addEventListener("click",function(){
-      filter=c.getAttribute("data-f");
-      document.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false")});
-      render();
-    });
-  });
-  C.products().then(function(l){items=l;render()}).catch(function(){C.$("empty").hidden=false;C.$("empty").textContent="Le catalogue est momentanément indisponible. Retrouvez-nous sur Instagram."});
-})();
-</script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/catalogue.js"></script>
 </body>
 </html>

@@ -1,58 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Coffelia – Gestion</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="index.html">Coffelia</a>
-    <nav class="pills"><a href="catalogue.html">Voir le catalogue</a><a href="#" id="logout">Se déconnecter</a></nav>
-  </div>
-</header>
-<main>
-  <section class="page adm">
-    <div class="wrap">
-      <h2>Gestion</h2>
-      <p id="status" role="status" class="intro">Vérification de la connexion…</p>
-      <div id="panel" hidden>
-        <div class="panel">
-          <h3>Ajouter un article</h3>
-          <form id="addForm">
-            <label for="fName">Nom<input id="fName" type="text" maxlength="60" required></label>
-            <label for="fType">Type<select id="fType"><option value="mug">Mug</option><option value="verre">Verre à café</option></select></label>
-            <label for="fPrice">Prix (en DH)<input id="fPrice" type="number" min="0" step="any" inputmode="decimal" required></label>
-            <label for="fDesc">Description (facultatif)<textarea id="fDesc" maxlength="300" placeholder="Matière, contenance, couleur…"></textarea></label>
-            <label class="check" for="fAvail"><input id="fAvail" type="checkbox" checked> Disponible à la vente</label>
-            <label for="fPhoto">Photo<input id="fPhoto" type="file" accept="image/*" required></label>
-            <img id="preview" class="preview" alt="Aperçu de la photo" hidden>
-            <button class="btn" id="fBtn" type="submit">Ajouter au catalogue</button>
-          </form>
-        </div>
-        <div class="panel">
-          <h3>Contact WhatsApp pour le paiement</h3>
-          <form id="waForm">
-            <label for="fWa">Numéro WhatsApp (avec l’indicatif, ou 06… pour le Maroc)<input id="fWa" type="tel" inputmode="tel" autocomplete="off"></label>
-            <button class="btn" type="submit">Enregistrer le numéro</button>
-          </form>
-        </div>
-        <h3 class="lst">Articles du catalogue</h3>
-        <div id="adminList"></div>
-      </div>
-    </div>
-  </section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="config.js"></script>
-<script src="common.js"></script>
-<script>
 (function(){
   var C=Coffelia,sb=C.sb;
   function say(t){C.$("status").textContent=t}
@@ -124,16 +69,13 @@
   C.$("logout").addEventListener("click",async function(e){
     e.preventDefault();
     if(sb)await sb.auth.signOut();
-    location.replace("connexion.html");
+    location.replace(C.url("pages/admin/connexion.html"));
   });
 
   (async function(){
     try{
-      if(!sb||!(await C.isAdmin())){location.replace("connexion.html");return}
+      if(!sb||!(await C.isAdmin())){location.replace(C.url("pages/admin/connexion.html"));return}
       C.$("panel").hidden=false;say("");await refresh();
     }catch(err){say("Connexion à la base impossible. Vérifiez config.js et votre connexion.")}
   })();
 })();
-</script>
-</body>
-</html>
