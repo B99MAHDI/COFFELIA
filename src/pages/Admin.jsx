@@ -94,11 +94,19 @@ function AddForm({ onAdded, say }) {
   );
 }
 
-function WhatsappForm({ say }) {
+function WhatsappForm() {
   const [value, setValue] = useState("");
+  const [saved, setSaved] = useState(null); // numéro actuellement enregistré ("" = aucun, null = chargement)
+  const [busy, setBusy] = useState(false);
+  const [feedback, setFeedback] = useState(null); // { kind: "ok" | "info" | "err", text }
 
   useEffect(() => {
-    fetchWhatsapp().then(setValue).catch(() => {});
+    fetchWhatsapp()
+      .then((v) => {
+        setSaved(cleanWa(v));
+        setValue(v);
+      })
+      .catch(() => setFeedback({ kind: "err", text: "Impossible de lire le numéro actuel." }));
   }, []);
 
   async function submit(e) {
@@ -106,26 +114,62 @@ function WhatsappForm({ say }) {
     const raw = value.trim();
     const n = cleanWa(raw);
     if (raw && !n) {
-      say("Numéro invalide. Vérifiez l’indicatif et les chiffres.");
+      setFeedback({ kind: "err", text: "Numéro invalide. Vérifiez l’indicatif et les chiffres." });
       return;
     }
+    if (n === saved) {
+      setFeedback({
+        kind: "info",
+        text: n ? "Ce numéro est déjà enregistré. Aucun changement." : "Aucun numéro n’est enregistré. Aucun changement.",
+      });
+      return;
+    }
+    setBusy(true);
     try {
       await saveWhatsapp(n);
-      say("Numéro enregistré.");
+      // Relecture dans la base pour confirmer que la modification est bien enregistrée
+      if (cleanWa(await fetchWhatsapp()) !== n) throw new Error("verify");
+      setFeedback({
+        kind: "ok",
+        text: !n
+          ? "Numéro supprimé. Les clients seront redirigés vers Instagram."
+          : saved
+          ? `Numéro modifié : +${saved} → +${n}`
+          : `Numéro enregistré : +${n}`,
+      });
+      setSaved(n);
+      setValue(n);
     } catch {
-      say("L’enregistrement a échoué.");
+      setFeedback({ kind: "err", text: "Le numéro n’a pas été modifié. Vérifiez votre connexion et réessayez." });
     }
+    setBusy(false);
   }
 
   return (
     <div className="panel">
       <h3>Contact WhatsApp pour le paiement</h3>
+      <p className="hint" style={{ marginTop: 0 }}>
+        Numéro actuel : <strong>{saved === null ? "chargement…" : saved ? "+" + saved : "aucun"}</strong>
+      </p>
       <form onSubmit={submit}>
         <label htmlFor="fWa">
-          Numéro WhatsApp (avec l'indicatif, ou 06… pour le Maroc)
-          <input id="fWa" type="tel" inputMode="tel" autoComplete="off" value={value} onChange={(e) => setValue(e.target.value)} />
+          Nouveau numéro (avec l’indicatif, ou 06… pour le Maroc)
+          <input
+            id="fWa"
+            type="tel"
+            inputMode="tel"
+            autoComplete="off"
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+              setFeedback(null);
+            }}
+          />
         </label>
-        <button className="btn" type="submit">Enregistrer le numéro</button>
+        {feedback && (
+          <p className={"msg " + feedback.kind} role="status">{feedback.text}</p>
+        )}
+        <button className="btn" type="submit" disabled={busy}>Enregistrer le numéro</button>
       </form>
     </div>
   );
@@ -185,7 +229,7 @@ export default function Admin() {
         <p role="status" className="intro">{message}</p>
 
         <AddForm onAdded={reload} say={setMessage} />
-        <WhatsappForm say={setMessage} />
+        <WhatsappForm />
 
         <h3 className="lst">Articles du catalogue</h3>
         <div>
